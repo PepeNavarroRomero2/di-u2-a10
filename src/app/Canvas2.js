@@ -6,7 +6,7 @@ import { draftMode } from 'next/headers.js';
 
 const initialPosition = {
   x: 0,
-  y: 0
+  y: 600
 };
 
 export default function Canvas() {
@@ -16,24 +16,18 @@ export default function Canvas() {
   });
 
   function handleMove(dx, dy) {
+     updateShape(draft => {
+      draft.position.x += dx
+      draft.position.y += dy
+     }
+     )
 
-    setShape({
-      ...shape,
-      position :{
-        x: shape.position.x + dx,
-        y: shape.position.y + dy
-      }
-    })
-    
-    shape.position.x += dx;
-    shape.position.y += dy;
   }
 
   function handleColorChange(e) {
-    setShape({
-      ...shape,
-      color: e.target.value
-    });
+    updateShape(draft => {
+        draft.color = e.target.value
+    })
   }
 
   return (
